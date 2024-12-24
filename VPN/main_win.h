@@ -36,6 +36,9 @@ namespace VPN {
 		}
 
 	private: System::Windows::Forms::PictureBox^ main_photo;
+	private: System::Windows::Forms::ProgressBar^ progressBar1;
+	private: System::Windows::Forms::Button^ button_connect_1;
+
 
 
 	private:
@@ -58,6 +61,8 @@ namespace VPN {
 		{
 			System::ComponentModel::ComponentResourceManager^ resources = (gcnew System::ComponentModel::ComponentResourceManager(main_win::typeid));
 			this->main_photo = (gcnew System::Windows::Forms::PictureBox());
+			this->progressBar1 = (gcnew System::Windows::Forms::ProgressBar());
+			this->button_connect_1 = (gcnew System::Windows::Forms::Button());
 			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->main_photo))->BeginInit();
 			this->SuspendLayout();
 			// 
@@ -74,14 +79,34 @@ namespace VPN {
 			this->main_photo->WaitOnLoad = true;
 			this->main_photo->Click += gcnew System::EventHandler(this, &main_win::main_photo_Click);
 			// 
+			// progressBar1
+			// 
+			this->progressBar1->Location = System::Drawing::Point(12, 12);
+			this->progressBar1->Name = L"progressBar1";
+			this->progressBar1->Size = System::Drawing::Size(432, 23);
+			this->progressBar1->TabIndex = 2;
+			// 
+			// button_connect_1
+			// 
+			this->button_connect_1->Location = System::Drawing::Point(12, 216);
+			this->button_connect_1->Name = L"button_connect_1";
+			this->button_connect_1->Size = System::Drawing::Size(93, 23);
+			this->button_connect_1->TabIndex = 3;
+			this->button_connect_1->Text = L"Подключиться";
+			this->button_connect_1->UseVisualStyleBackColor = true;
+			this->button_connect_1->Click += gcnew System::EventHandler(this, &main_win::button_connect_1_Click);
+			// 
 			// main_win
 			// 
 			this->AutoScaleDimensions = System::Drawing::SizeF(6, 13);
 			this->AutoScaleMode = System::Windows::Forms::AutoScaleMode::Font;
+			this->AutoSizeMode = System::Windows::Forms::AutoSizeMode::GrowAndShrink;
 			this->AutoValidate = System::Windows::Forms::AutoValidate::EnablePreventFocusChange;
 			this->BackColor = System::Drawing::Color::White;
 			this->BackgroundImageLayout = System::Windows::Forms::ImageLayout::Center;
 			this->ClientSize = System::Drawing::Size(456, 261);
+			this->Controls->Add(this->button_connect_1);
+			this->Controls->Add(this->progressBar1);
 			this->Controls->Add(this->main_photo);
 			this->FormBorderStyle = System::Windows::Forms::FormBorderStyle::FixedSingle;
 			this->Icon = (cli::safe_cast<System::Drawing::Icon^>(resources->GetObject(L"$this.Icon")));
@@ -104,6 +129,12 @@ namespace VPN {
 
 	private: System::Void main_photo_Click(System::Object^ sender, System::EventArgs^ e) {
 		
+
+	}
+
+	private: System::Void button_connect_1_Click(System::Object^ sender, System::EventArgs^ e) {
+
+
 
 	}
 };
