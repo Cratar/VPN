@@ -8,6 +8,7 @@ namespace VPN {
 	using namespace System::Windows::Forms;
 	using namespace System::Data;
 	using namespace System::Drawing;
+	using namespace System::Diagnostics;
 
 	/// <summary>
 	/// Сводка для main_win
@@ -94,7 +95,8 @@ namespace VPN {
 			this->button_connect_1->TabIndex = 3;
 			this->button_connect_1->Text = L"Подключиться";
 			this->button_connect_1->UseVisualStyleBackColor = true;
-			this->button_connect_1->Click += gcnew System::EventHandler(this, &main_win::button_connect_1_Click);
+			
+			this->button_connect_1->Click += gcnew System::EventHandler(this, &main_win::button_connect_Click );
 			// 
 			// main_win
 			// 
@@ -132,10 +134,23 @@ namespace VPN {
 
 	}
 
-	private: System::Void button_connect_1_Click(System::Object^ sender, System::EventArgs^ e) {
+	private: System::Void button_connect_Click(System::Object^ sender, System::EventArgs^ e ) {
+		static bool isConnected = false; // Состояние кнопки
 
-
+		if (!isConnected) {
+			Process::Start(".\\source\\test.bat"); 
+			this->button_connect_1->Text = "Отключиться"; 
+			isConnected = true; 
+		}
+		else {
+			Process::Start(".\\source\\test.bat");
+			this->button_connect_1->Text = "Подключиться"; 
+			isConnected = false; 
+		}
+		
 
 	}
+
+
 };
 }

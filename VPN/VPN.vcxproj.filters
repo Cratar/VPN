@@ -9,7 +9,10 @@
       <UniqueIdentifier>{93995380-89BD-4b04-88EB-625FBE52EBFB}</UniqueIdentifier>
       <Extensions>h;hh;hpp;hxx;h++;hm;inl;inc;ipp;xsd</Extensions>
     </Filter>
-    <Filter Include="Файлы ресурсов">
+    <Filter Include="source">
+      <UniqueIdentifier>{9904bc0c-904e-4864-a4e1-f95cbe6a9f99}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="img">
       <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
       <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
     </Filter>
@@ -26,7 +29,23 @@
   </ItemGroup>
   <ItemGroup>
     <Image Include="img\DALL_mini.jpeg">
-      <Filter>Файлы ресурсов</Filter>
+      <Filter>img</Filter>
     </Image>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="source\VPN_OFF.bat">
+      <Filter>source</Filter>
+    </None>
+    <None Include="source\VPN_ON.bat">
+      <Filter>source</Filter>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <Text Include="source\VPN_OFF_LOG.txt">
+      <Filter>source</Filter>
+    </Text>
+    <Text Include="source\VPN_ON_LOG.txt">
+      <Filter>source</Filter>
+    </Text>
   </ItemGroup>
 </Project>
