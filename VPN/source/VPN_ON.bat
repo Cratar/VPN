@@ -13,6 +13,6 @@ PowerShell -Command "[Console]::OutputEncoding = [System.Text.Encoding]::UTF8; i
 PowerShell -Command "[Console]::OutputEncoding = [System.Text.Encoding]::UTF8; if (Get-VpnConnection -Name %nameVPN% -ErrorAction SilentlyContinue) { Set-VpnConnection -Name %nameVPN% -SplitTunneling $false -Force; Write-Host 'Split_tunneling_disabled.' }"
 
 :: Подключение к VPN
-PowerShell -Command "[Console]::OutputEncoding = [System.Text.Encoding]::UTF8;if (rasdial %nameVPN% %nameUser% %password%") {Write-Host 'Connection_correct.'} else{Write-Host 'Connection_disabled'}>.\VPN_ON_LOG.txt
+PowerShell -Command "[Console]::OutputEncoding = [System.Text.Encoding]::UTF8;if (rasdial %nameVPN% %nameUser% %password%) {Write-Host 'Connection_correct.'} else{Write-Host 'Connection_disabled'}">VPN_ON_LOG.txt
 
-pause
+::pause

@@ -9,6 +9,7 @@ namespace VPN {
 	using namespace System::Data;
 	using namespace System::Drawing;
 	using namespace System::Diagnostics;
+	using namespace System::Threading::Tasks;
 
 	/// <summary>
 	/// Сводка для main_win
@@ -137,18 +138,26 @@ namespace VPN {
 	private: System::Void button_connect_Click(System::Object^ sender, System::EventArgs^ e ) {
 		static bool isConnected = false; // Состояние кнопки
 
-		if (!isConnected) {
-			Process::Start(".\\source\\test.bat"); 
-			this->button_connect_1->Text = "Отключиться"; 
-			isConnected = true; 
+		try
+		{
+			if (!isConnected) {
+				
+				Process::Start(".\\source\\Start_VPN_ON.vbs"); //ON
+				this->button_connect_1->Text = "Отключиться";
+				isConnected = true;
+			}
+			else {
+				
+				Process::Start(".\\source\\End_VPN_OFF.vbs"); //OFF
+				this->button_connect_1->Text = "Подключиться";
+				isConnected = false;
+			}
 		}
-		else {
-			Process::Start(".\\source\\test.bat");
-			this->button_connect_1->Text = "Подключиться"; 
-			isConnected = false; 
-		}
-		
+		catch (System::ComponentModel::Win32Exception^ ex)
+		{
+			MessageBox::Show("Ошибка: " + ex->Message, "Ошибка запуска", MessageBoxButtons::OK, MessageBoxIcon::Error);
 
+		}
 	}
 
 

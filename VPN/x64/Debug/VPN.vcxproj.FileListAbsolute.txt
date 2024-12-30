@@ -1,3 +1,0 @@
-D:\Cod_C++\VPN\VPN\x64\Debug\VPN.vcxproj.AssemblyReference.cache
-D:\Cod_C++\VPN\VPN\x64\Debug\VPN.main_win.resources
-D:\Cod_C++\VPN\VPN\x64\Debug\VPN.vcxproj.GenerateResource.cache
