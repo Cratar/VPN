@@ -74,8 +74,9 @@ namespace VPN {
 			this->main_photo->BackgroundImage = (cli::safe_cast<System::Drawing::Image^>(resources->GetObject(L"main_photo.BackgroundImage")));
 			this->main_photo->BackgroundImageLayout = System::Windows::Forms::ImageLayout::Zoom;
 			this->main_photo->Location = System::Drawing::Point(-1, -2);
+			this->main_photo->Margin = System::Windows::Forms::Padding(4);
 			this->main_photo->Name = L"main_photo";
-			this->main_photo->Size = System::Drawing::Size(460, 263);
+			this->main_photo->Size = System::Drawing::Size(613, 324);
 			this->main_photo->TabIndex = 1;
 			this->main_photo->TabStop = false;
 			this->main_photo->WaitOnLoad = true;
@@ -83,38 +84,43 @@ namespace VPN {
 			// 
 			// progressBar1
 			// 
-			this->progressBar1->Location = System::Drawing::Point(12, 12);
+			this->progressBar1->Location = System::Drawing::Point(16, 15);
+			this->progressBar1->Margin = System::Windows::Forms::Padding(4);
 			this->progressBar1->Name = L"progressBar1";
-			this->progressBar1->Size = System::Drawing::Size(432, 23);
+			this->progressBar1->Size = System::Drawing::Size(576, 28);
 			this->progressBar1->TabIndex = 2;
 			// 
 			// button_connect_1
 			// 
-			this->button_connect_1->Location = System::Drawing::Point(12, 216);
+			int cornerRadius = 15; // Задаём меньший радиус для уменьшенного закругления
+			MakeButtonRounded(button_connect_1, cornerRadius);
+
+			this->button_connect_1->Location = System::Drawing::Point(16, 266);
+			this->button_connect_1->Margin = System::Windows::Forms::Padding(4);
 			this->button_connect_1->Name = L"button_connect_1";
-			this->button_connect_1->Size = System::Drawing::Size(93, 23);
+			this->button_connect_1->Size = System::Drawing::Size(124, 28);
 			this->button_connect_1->TabIndex = 3;
 			this->button_connect_1->Text = L"Подключиться";
 			this->button_connect_1->UseVisualStyleBackColor = true;
-			
-			this->button_connect_1->Click += gcnew System::EventHandler(this, &main_win::button_connect_Click );
+			this->button_connect_1->Click += gcnew System::EventHandler(this, &main_win::button_connect_Click);
 			// 
 			// main_win
 			// 
-			this->AutoScaleDimensions = System::Drawing::SizeF(6, 13);
+			this->AutoScaleDimensions = System::Drawing::SizeF(8, 16);
 			this->AutoScaleMode = System::Windows::Forms::AutoScaleMode::Font;
 			this->AutoSizeMode = System::Windows::Forms::AutoSizeMode::GrowAndShrink;
 			this->AutoValidate = System::Windows::Forms::AutoValidate::EnablePreventFocusChange;
 			this->BackColor = System::Drawing::Color::White;
 			this->BackgroundImageLayout = System::Windows::Forms::ImageLayout::Center;
-			this->ClientSize = System::Drawing::Size(456, 261);
+			this->ClientSize = System::Drawing::Size(605, 311);
 			this->Controls->Add(this->button_connect_1);
 			this->Controls->Add(this->progressBar1);
 			this->Controls->Add(this->main_photo);
 			this->FormBorderStyle = System::Windows::Forms::FormBorderStyle::FixedSingle;
 			this->Icon = (cli::safe_cast<System::Drawing::Icon^>(resources->GetObject(L"$this.Icon")));
-			this->MaximumSize = System::Drawing::Size(472, 300);
-			this->MinimumSize = System::Drawing::Size(200, 100);
+			this->Margin = System::Windows::Forms::Padding(4);
+			this->MaximumSize = System::Drawing::Size(623, 358);
+			this->MinimumSize = System::Drawing::Size(261, 112);
 			this->Name = L"main_win";
 			this->StartPosition = System::Windows::Forms::FormStartPosition::CenterScreen;
 			this->Text = L"VIPTOP";
@@ -134,26 +140,40 @@ namespace VPN {
 		
 
 	}
+	private: void MakeButtonRounded(Button^ btn, int cornerRadius) {
+		System::Drawing::Drawing2D::GraphicsPath^ gp = gcnew System::Drawing::Drawing2D::GraphicsPath();
 
+		// Углы с заданным радиусом
+		gp->AddArc(0, 0, cornerRadius, cornerRadius, 180, 90); // Левый верхний угол
+		gp->AddArc(btn->Width, 0, cornerRadius, cornerRadius, 270, 90); // Правый верхний угол
+		gp->AddArc(btn->Width, btn->Height - cornerRadius, cornerRadius, cornerRadius, 0, 90); // Правый нижний угол
+		gp->AddArc(0, btn->Height - cornerRadius, cornerRadius, cornerRadius, 90, 90); // Левый нижний угол
+
+		// Замыкаем контур
+		gp->CloseFigure();
+
+		btn->Region = gcnew System::Drawing::Region(gp);
+	}
 	private: System::Void button_connect_Click(System::Object^ sender, System::EventArgs^ e ) {
 		static bool isConnected = false; // Состояние кнопки
+
 
 		try
 		{
 			if (!isConnected) {
 				
-				Process::Start(".\\source\\Start_VPN_ON.vbs"); //ON
+				Process::Start(".\\source\\test.bat"); //ON  .\\source\\Start_VPN_ON.vbs
 				this->button_connect_1->Text = "Отключиться";
 				isConnected = true;
 			}
 			else {
 				
-				Process::Start(".\\source\\End_VPN_OFF.vbs"); //OFF
+				Process::Start(".\\source\\test.bat"); //OFF .\\source\\End_VPN_OFF.vbs
 				this->button_connect_1->Text = "Подключиться";
 				isConnected = false;
 			}
 		}
-		catch (System::ComponentModel::Win32Exception^ ex)
+		catch (System::ComponentModel::Win32Exception^& ex)
 		{
 			MessageBox::Show("Ошибка: " + ex->Message, "Ошибка запуска", MessageBoxButtons::OK, MessageBoxIcon::Error);
 
