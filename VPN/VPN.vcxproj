@@ -138,6 +138,9 @@
     <Image Include="img\DALL_mini.jpeg" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="source\End_VPN_OFF.vbs" />
+    <None Include="source\Start_VPN_ON.vbs" />
+    <None Include="source\test.bat" />
     <None Include="source\VPN_OFF.bat" />
     <None Include="source\VPN_ON.bat" />
   </ItemGroup>

@@ -10,6 +10,8 @@ namespace VPN {
 	using namespace System::Drawing;
 	using namespace System::Diagnostics;
 	using namespace System::Threading::Tasks;
+	using namespace System::IO;
+	using namespace System::Drawing::Drawing2D;
 
 	/// <summary>
 	/// Сводка для main_win
@@ -38,7 +40,8 @@ namespace VPN {
 		}
 
 	private: System::Windows::Forms::PictureBox^ main_photo;
-	private: System::Windows::Forms::ProgressBar^ progressBar1;
+	private: System::Windows::Forms::ProgressBar^ progressBar_main;
+
 	private: System::Windows::Forms::Button^ button_connect_1;
 
 
@@ -63,7 +66,7 @@ namespace VPN {
 		{
 			System::ComponentModel::ComponentResourceManager^ resources = (gcnew System::ComponentModel::ComponentResourceManager(main_win::typeid));
 			this->main_photo = (gcnew System::Windows::Forms::PictureBox());
-			this->progressBar1 = (gcnew System::Windows::Forms::ProgressBar());
+			this->progressBar_main = (gcnew System::Windows::Forms::ProgressBar());
 			this->button_connect_1 = (gcnew System::Windows::Forms::Button());
 			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->main_photo))->BeginInit();
 			this->SuspendLayout();
@@ -82,27 +85,31 @@ namespace VPN {
 			this->main_photo->WaitOnLoad = true;
 			this->main_photo->Click += gcnew System::EventHandler(this, &main_win::main_photo_Click);
 			// 
-			// progressBar1
+			// progressBar_main
 			// 
-			this->progressBar1->Location = System::Drawing::Point(16, 15);
-			this->progressBar1->Margin = System::Windows::Forms::Padding(4);
-			this->progressBar1->Name = L"progressBar1";
-			this->progressBar1->Size = System::Drawing::Size(576, 28);
-			this->progressBar1->TabIndex = 2;
+			this->progressBar_main->Location = System::Drawing::Point(16, 15);
+			this->progressBar_main->Margin = System::Windows::Forms::Padding(4);
+			this->progressBar_main->Name = L"progressBar_main";
+			this->progressBar_main->Size = System::Drawing::Size(576, 28);
+			this->progressBar_main->TabIndex = 2;
+			this->progressBar_main->Move += gcnew System::EventHandler(this, &main_win::progressBar_main_Move);
+			
+			MakeButtonRounded(progressBar_main , 15.0f);
 			// 
 			// button_connect_1
 			// 
-			int cornerRadius = 15; // Задаём меньший радиус для уменьшенного закругления
-			MakeButtonRounded(button_connect_1, cornerRadius);
-
+			this->button_connect_1->Anchor = System::Windows::Forms::AnchorStyles::Left;
+			this->button_connect_1->BackColor = System::Drawing::Color::WhiteSmoke;
 			this->button_connect_1->Location = System::Drawing::Point(16, 266);
 			this->button_connect_1->Margin = System::Windows::Forms::Padding(4);
 			this->button_connect_1->Name = L"button_connect_1";
 			this->button_connect_1->Size = System::Drawing::Size(124, 28);
 			this->button_connect_1->TabIndex = 3;
 			this->button_connect_1->Text = L"Подключиться";
-			this->button_connect_1->UseVisualStyleBackColor = true;
+			this->button_connect_1->UseVisualStyleBackColor = false;
 			this->button_connect_1->Click += gcnew System::EventHandler(this, &main_win::button_connect_Click);
+			
+			MakeButtonRounded(this->button_connect_1 , 15.0f);
 			// 
 			// main_win
 			// 
@@ -114,7 +121,7 @@ namespace VPN {
 			this->BackgroundImageLayout = System::Windows::Forms::ImageLayout::Center;
 			this->ClientSize = System::Drawing::Size(605, 311);
 			this->Controls->Add(this->button_connect_1);
-			this->Controls->Add(this->progressBar1);
+			this->Controls->Add(this->progressBar_main);
 			this->Controls->Add(this->main_photo);
 			this->FormBorderStyle = System::Windows::Forms::FormBorderStyle::FixedSingle;
 			this->Icon = (cli::safe_cast<System::Drawing::Icon^>(resources->GetObject(L"$this.Icon")));
@@ -129,7 +136,40 @@ namespace VPN {
 			this->ResumeLayout(false);
 
 		}
+
+									//#Вспомогательные функции 
 #pragma endregion
+		private:
+			template <typename T>
+			GraphicsPath^ RoundedRectangle(T rect, float roundSize) {
+				GraphicsPath^ gp = gcnew GraphicsPath();
+
+				// Используем float для всех аргументов AddArc
+				gp->AddArc((float)rect.X, (float)rect.Y, roundSize, roundSize, 180.0f, 90.0f); // Левый верхний угол
+				gp->AddArc((float)(rect.X + rect.Width - roundSize), (float)rect.Y, roundSize, roundSize, 270.0f, 90.0f); // Правый верхний угол
+				gp->AddArc((float)(rect.X + rect.Width - roundSize), (float)(rect.Y + rect.Height - roundSize), roundSize, roundSize, 0.0f, 90.0f); // Правый нижний угол
+				gp->AddArc((float)rect.X, (float)(rect.Y + rect.Height - roundSize), roundSize, roundSize, 90.0f, 90.0f); // Левый нижний угол
+
+				gp->CloseFigure();
+
+				return gp;
+			}
+	private:
+		template <typename T>
+		void MakeButtonRounded(T^ btn, float roundSize) {
+			// Получаем область кнопки
+			System::Drawing::Rectangle rect = System::Drawing::Rectangle(0, 0, btn->Width, btn->Height);
+
+			// Создаём закруглённый прямоугольник
+			System::Drawing::Drawing2D::GraphicsPath^ path = RoundedRectangle(rect, roundSize);
+
+			// Устанавливаем область кнопки
+			btn->Region = gcnew System::Drawing::Region(path);
+		}
+
+#pragma endregion
+
+
 	private: System::Void main_win_Load(System::Object^ sender, System::EventArgs^ e) {
 
 
@@ -140,20 +180,7 @@ namespace VPN {
 		
 
 	}
-	private: void MakeButtonRounded(Button^ btn, int cornerRadius) {
-		System::Drawing::Drawing2D::GraphicsPath^ gp = gcnew System::Drawing::Drawing2D::GraphicsPath();
 
-		// Углы с заданным радиусом
-		gp->AddArc(0, 0, cornerRadius, cornerRadius, 180, 90); // Левый верхний угол
-		gp->AddArc(btn->Width, 0, cornerRadius, cornerRadius, 270, 90); // Правый верхний угол
-		gp->AddArc(btn->Width, btn->Height - cornerRadius, cornerRadius, cornerRadius, 0, 90); // Правый нижний угол
-		gp->AddArc(0, btn->Height - cornerRadius, cornerRadius, cornerRadius, 90, 90); // Левый нижний угол
-
-		// Замыкаем контур
-		gp->CloseFigure();
-
-		btn->Region = gcnew System::Drawing::Region(gp);
-	}
 	private: System::Void button_connect_Click(System::Object^ sender, System::EventArgs^ e ) {
 		static bool isConnected = false; // Состояние кнопки
 
@@ -180,6 +207,18 @@ namespace VPN {
 		}
 	}
 
+	private: System::Void progressBar_main_Move(System::Object^ sender, System::EventArgs^ e) {
+		
+		try
+		{
+			String^ winDir = System::Environment::GetEnvironmentVariable(".\\source\\VPN_ON_LOG.txt");
 
+		}
+		catch (System::ComponentModel::Win32Exception^& ex)
+		{
+			MessageBox::Show("Ошибка открытия файла " + ex->Message, "Ошибка запуска ", MessageBoxButtons::OK, MessageBoxIcon::Error);
+		}
+
+	}
 };
 }

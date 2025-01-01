@@ -39,6 +39,15 @@
     <None Include="source\VPN_ON.bat">
       <Filter>source</Filter>
     </None>
+    <None Include="source\End_VPN_OFF.vbs">
+      <Filter>source</Filter>
+    </None>
+    <None Include="source\Start_VPN_ON.vbs">
+      <Filter>source</Filter>
+    </None>
+    <None Include="source\test.bat">
+      <Filter>source</Filter>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <Text Include="source\VPN_OFF_LOG.txt">
