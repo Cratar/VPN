@@ -138,15 +138,17 @@
     <Image Include="img\DALL_mini.jpeg" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="source\Clear.bat" />
     <None Include="source\End_VPN_OFF.vbs" />
+    <None Include="source\Start_Clear.vbs" />
     <None Include="source\Start_VPN_ON.vbs" />
     <None Include="source\test.bat" />
     <None Include="source\VPN_OFF.bat" />
     <None Include="source\VPN_ON.bat" />
   </ItemGroup>
   <ItemGroup>
-    <Text Include="source\VPN_OFF_LOG.txt" />
-    <Text Include="source\VPN_ON_LOG.txt" />
+    <Text Include="VPN_OFF_LOG.txt" />
+    <Text Include="VPN_ON_LOG.txt" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

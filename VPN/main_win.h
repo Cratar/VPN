@@ -12,6 +12,7 @@ namespace VPN {
 	using namespace System::Threading::Tasks;
 	using namespace System::IO;
 	using namespace System::Drawing::Drawing2D;
+	using namespace System::Threading;
 
 	/// <summary>
 	/// Сводка для main_win
@@ -22,6 +23,9 @@ namespace VPN {
 		main_win(void)
 		{
 			InitializeComponent();
+			StartClearTXTThread();
+			
+
 			//
 			//TODO: добавьте код конструктора
 			//
@@ -58,6 +62,7 @@ namespace VPN {
 
 
 #pragma region Windows Form Designer generated code
+		
 		/// <summary>
 		/// Требуемый метод для поддержки конструктора — не изменяйте 
 		/// содержимое этого метода с помощью редактора кода.
@@ -94,7 +99,7 @@ namespace VPN {
 			this->progressBar_main->TabIndex = 2;
 			this->progressBar_main->Move += gcnew System::EventHandler(this, &main_win::progressBar_main_Move);
 			
-			MakeButtonRounded(progressBar_main , 15.0f);
+			//MakeButtonRounded(progressBar_main , 15.0f);
 			// 
 			// button_connect_1
 			// 
@@ -109,7 +114,7 @@ namespace VPN {
 			this->button_connect_1->UseVisualStyleBackColor = false;
 			this->button_connect_1->Click += gcnew System::EventHandler(this, &main_win::button_connect_Click);
 			
-			MakeButtonRounded(this->button_connect_1 , 15.0f);
+			//MakeButtonRounded(this->button_connect_1 , 15.0f);
 			// 
 			// main_win
 			// 
@@ -139,35 +144,102 @@ namespace VPN {
 
 									//#Вспомогательные функции 
 #pragma endregion
-		private:
-			template <typename T>
-			GraphicsPath^ RoundedRectangle(T rect, float roundSize) {
-				GraphicsPath^ gp = gcnew GraphicsPath();
+	//	private:
+	//		template <typename T>
+	//		GraphicsPath^ RoundedRectangle(T rect, float roundSize) {
+	//			GraphicsPath^ gp = gcnew GraphicsPath();
 
-				// Используем float для всех аргументов AddArc
-				gp->AddArc((float)rect.X, (float)rect.Y, roundSize, roundSize, 180.0f, 90.0f); // Левый верхний угол
-				gp->AddArc((float)(rect.X + rect.Width - roundSize), (float)rect.Y, roundSize, roundSize, 270.0f, 90.0f); // Правый верхний угол
-				gp->AddArc((float)(rect.X + rect.Width - roundSize), (float)(rect.Y + rect.Height - roundSize), roundSize, roundSize, 0.0f, 90.0f); // Правый нижний угол
-				gp->AddArc((float)rect.X, (float)(rect.Y + rect.Height - roundSize), roundSize, roundSize, 90.0f, 90.0f); // Левый нижний угол
+	//			// Используем float для всех аргументов AddArc
+	//			gp->AddArc((float)rect.X, (float)rect.Y, roundSize, roundSize, 180.0f, 90.0f); // Левый верхний угол
+	//			gp->AddArc((float)(rect.X + rect.Width - roundSize), (float)rect.Y, roundSize, roundSize, 270.0f, 90.0f); // Правый верхний угол
+	//			gp->AddArc((float)(rect.X + rect.Width - roundSize), (float)(rect.Y + rect.Height - roundSize), roundSize, roundSize, 0.0f, 90.0f); // Правый нижний угол
+	//			gp->AddArc((float)rect.X, (float)(rect.Y + rect.Height - roundSize), roundSize, roundSize, 90.0f, 90.0f); // Левый нижний угол
 
-				gp->CloseFigure();
+	//			gp->CloseFigure();
 
-				return gp;
+	//			return gp;
+	//		}
+	//private:
+	//	template <typename T>
+	//	void MakeButtonRounded(T^ btn, float roundSize) {
+	//		// Получаем область кнопки
+	//		System::Drawing::Rectangle rect = System::Drawing::Rectangle(0, 0, btn->Width, btn->Height);
+
+	//		// Создаём закруглённый прямоугольник
+	//		System::Drawing::Drawing2D::GraphicsPath^ path = RoundedRectangle(rect, roundSize);
+
+	//		// Устанавливаем область кнопки
+	//		btn->Region = gcnew System::Drawing::Region(path);
+	//	}
+
+	private :
+		 String^ ReadTXT(String^ dirFile) {
+			try {
+				// Открытие файла для чтения
+				StreamReader^ file = File::OpenText(dirFile);
+
+				// Чтение содержимого файла
+				String^ content = file->ReadToEnd();
+
+				// Закрытие файла
+				file->Close();
+
+				return content;
 			}
-	private:
-		template <typename T>
-		void MakeButtonRounded(T^ btn, float roundSize) {
-			// Получаем область кнопки
-			System::Drawing::Rectangle rect = System::Drawing::Rectangle(0, 0, btn->Width, btn->Height);
-
-			// Создаём закруглённый прямоугольник
-			System::Drawing::Drawing2D::GraphicsPath^ path = RoundedRectangle(rect, roundSize);
-
-			// Устанавливаем область кнопки
-			btn->Region = gcnew System::Drawing::Region(path);
+			catch (Exception^& ex) {
+				// Обработка ошибок
+				Console::WriteLine("Ошибка: {0}", ex->Message);
+				return nullptr;
+			}
 		}
 
-#pragma endregion
+		void ProgersBar(String^& text) {
+			// Константы для улучшения читаемости
+			const int progressMax = 100;
+			const int specialConditionThreshold = 89;
+
+			// Настройка ProgressBar
+			this->progressBar_main->Visible = true;
+			this->progressBar_main->Minimum = 1;
+			this->progressBar_main->Maximum = progressMax;
+			this->progressBar_main->Value = 1;
+			this->progressBar_main->Step = 1;
+
+			try {
+				// Основной цикл
+				for (int x = 1; x <= progressMax; ++x) {
+					if (x <= specialConditionThreshold ||
+						(text == "Connection_correct.\n" || text == "Disconnect_correct.\n")) {
+						this->progressBar_main->PerformStep();
+					}
+					else if(text->Empty) {
+						// Изменение цвета ProgressBar на красный при ошибке
+						this->progressBar_main->ForeColor = Color::Red;
+						return;
+					}
+				}
+			}
+			catch (System::ComponentModel::Win32Exception^ ex) {
+				this->progressBar_main->ForeColor = Color::Red;
+				MessageBox::Show("Ошибка: " + ex->Message, "Ошибка соединения",
+					MessageBoxButtons::OK, MessageBoxIcon::Error);
+			}
+		}
+
+		static void ClearTXT() {
+			
+			Process::Start(".\\source\\Start_Clear.vbs");
+
+		}
+		void StartClearTXTThread() {
+			Thread^ thread = gcnew Thread(gcnew ThreadStart(&ClearTXT));
+			thread->Start();
+		}
+
+
+
+									// Основыне функции 
+#pragma endregion				
 
 
 	private: System::Void main_win_Load(System::Object^ sender, System::EventArgs^ e) {
@@ -189,15 +261,23 @@ namespace VPN {
 		{
 			if (!isConnected) {
 				
-				Process::Start(".\\source\\test.bat"); //ON  .\\source\\Start_VPN_ON.vbs
+				Process::Start(".\\source\\Start_VPN_ON.vbs"); //ON  .\\source\\Start_VPN_ON.vbs
 				this->button_connect_1->Text = "Отключиться";
 				isConnected = true;
+				String^ TextOn;
+				TextOn = ReadTXT("VPN_ON_LOG.txt");
+				ProgersBar(TextOn);
+
 			}
-			else {
-				
-				Process::Start(".\\source\\test.bat"); //OFF .\\source\\End_VPN_OFF.vbs
+			else {				
+
+				Process::Start(".\\source\\End_VPN_OFF.vbs"); //OFF .\\source\\End_VPN_OFF.vbs
 				this->button_connect_1->Text = "Подключиться";
 				isConnected = false;
+				String^ TextOff;
+				TextOff = ReadTXT("VPN_OFF_LOG.txt");
+				ProgersBar(TextOff);
+
 			}
 		}
 		catch (System::ComponentModel::Win32Exception^& ex)
@@ -209,15 +289,6 @@ namespace VPN {
 
 	private: System::Void progressBar_main_Move(System::Object^ sender, System::EventArgs^ e) {
 		
-		try
-		{
-			String^ winDir = System::Environment::GetEnvironmentVariable(".\\source\\VPN_ON_LOG.txt");
-
-		}
-		catch (System::ComponentModel::Win32Exception^& ex)
-		{
-			MessageBox::Show("Ошибка открытия файла " + ex->Message, "Ошибка запуска ", MessageBoxButtons::OK, MessageBoxIcon::Error);
-		}
 
 	}
 };

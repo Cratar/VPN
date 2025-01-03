@@ -48,12 +48,18 @@
     <None Include="source\test.bat">
       <Filter>source</Filter>
     </None>
+    <None Include="source\Start_Clear.vbs">
+      <Filter>source</Filter>
+    </None>
+    <None Include="source\Clear.bat">
+      <Filter>source</Filter>
+    </None>
   </ItemGroup>
   <ItemGroup>
-    <Text Include="source\VPN_OFF_LOG.txt">
+    <Text Include="VPN_OFF_LOG.txt">
       <Filter>source</Filter>
     </Text>
-    <Text Include="source\VPN_ON_LOG.txt">
+    <Text Include="VPN_ON_LOG.txt">
       <Filter>source</Filter>
     </Text>
   </ItemGroup>
