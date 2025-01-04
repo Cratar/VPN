@@ -23,7 +23,7 @@ namespace VPN {
 		main_win(void)
 		{
 			InitializeComponent();
-			//StartClearTXT();
+			StartClearTXT();
 			
 
 			//
@@ -208,6 +208,7 @@ namespace VPN {
 				for (int x = 1; x <= progressMax; ++x) {
 					if ((text == "Connection_correct.\n" || text == "Disconnect_correct.\n")) {
 						this->progressBar_main->Value = progressMax;
+						break;
 					}
 					else if(text->Empty) {
 						
@@ -225,19 +226,19 @@ namespace VPN {
 			}
 		}
 
-		private:
-			 void ClearTXT() {
-			try {
+	private:
+			void ClearTXT() {
+		try {
 
-				Process^ process = Process::Start(".\\source\\Start_Clear.vbs");
-				//process->WaitForExit(); // Ждем завершения процесса
+			Process^ process = Process::Start(".\\source\\Start_Clear.vbs");
+			//process->WaitForExit(); // Ждем завершения процесса
 
-			}
-			catch (Exception^& ex) {
-				
-				MessageBox::Show("Ошибка запуска: " + ex->Message, "Ошибка", MessageBoxButtons::OK, MessageBoxIcon::Error);
-			}
 		}
+		catch (Exception^& ex) {
+
+			MessageBox::Show("Ошибка запуска: " + ex->Message, "Ошибка", MessageBoxButtons::OK, MessageBoxIcon::Error);
+		}
+	}
 
 		// Метод для запуска потока
 	private:
@@ -285,15 +286,27 @@ namespace VPN {
 					this->button_connect_1->Text = "Отключиться";
 					isConnected = true;
 					// Попытка загрузить лог подключения
-					TextON = ReadTXT("VPN_ON_LOG.txt");
 
 					//!!!!!!Сдеалть что бы основной поток ждал когда в логах появится запись!!!!!!
 
+					while (String::IsNullOrEmpty(TextON)) {
+						Thread::Sleep(150);
+						TextON = ReadTXT("VPN_ON_LOG.txt");
+						Thread::Sleep(150);
+
+					}
 
 					// Запуск прогресс-бара только если текст был загружен
 					if (!String::IsNullOrEmpty(TextON)) {
 						ProgersBar(TextON);
 					}
+					else
+					{
+						this->progressBar_main->ForeColor = Color::Red;
+						MessageBox::Show("Ошибка: ", "Ошибка запуска", MessageBoxButtons::OK, MessageBoxIcon::Error);
+					}
+
+					
 
 				}
 				else {
@@ -306,8 +319,23 @@ namespace VPN {
 
 
 					// Запуск прогресс-бара только если текст был загружен
+
+					while (String::IsNullOrEmpty(TextOFF)) {
+						Thread::Sleep(150);
+						TextOFF = ReadTXT("VPN_ON_LOG.txt");
+						Thread::Sleep(150);
+
+					}
+
+					// Запуск прогресс-бара только если текст был загружен
 					if (!String::IsNullOrEmpty(TextOFF)) {
 						ProgersBar(TextOFF);
+
+					}
+					else
+					{
+						this->progressBar_main->ForeColor = Color::Red;
+						MessageBox::Show("Ошибка: ", "Ошибка завершения ", MessageBoxButtons::OK, MessageBoxIcon::Error);
 					}
 				}
 			}
