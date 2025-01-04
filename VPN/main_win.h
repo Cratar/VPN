@@ -1,4 +1,4 @@
-#pragma once
+п»ї#pragma once
 
 namespace VPN {
 
@@ -15,7 +15,7 @@ namespace VPN {
 	using namespace System::Threading;
 
 	/// <summary>
-	/// Сводка для main_win
+	/// РЎРІРѕРґРєР° РґР»СЏ main_win
 	/// </summary>
 	public ref class main_win : public System::Windows::Forms::Form
 	{
@@ -23,17 +23,17 @@ namespace VPN {
 		main_win(void)
 		{
 			InitializeComponent();
-			StartClearTXTThread();
+			//StartClearTXT();
 			
 
 			//
-			//TODO: добавьте код конструктора
+			//TODO: РґРѕР±Р°РІСЊС‚Рµ РєРѕРґ РєРѕРЅСЃС‚СЂСѓРєС‚РѕСЂР°
 			//
 		}
 
 	protected:
 		/// <summary>
-		/// Освободить все используемые ресурсы.
+		/// РћСЃРІРѕР±РѕРґРёС‚СЊ РІСЃРµ РёСЃРїРѕР»СЊР·СѓРµРјС‹Рµ СЂРµСЃСѓСЂСЃС‹.
 		/// </summary>
 		~main_win()
 		{
@@ -57,15 +57,15 @@ namespace VPN {
 
 	private:
 		/// <summary>
-		/// Обязательная переменная конструктора.
+		/// РћР±СЏР·Р°С‚РµР»СЊРЅР°СЏ РїРµСЂРµРјРµРЅРЅР°СЏ РєРѕРЅСЃС‚СЂСѓРєС‚РѕСЂР°.
 		/// </summary>
 
 
 #pragma region Windows Form Designer generated code
 		
 		/// <summary>
-		/// Требуемый метод для поддержки конструктора — не изменяйте 
-		/// содержимое этого метода с помощью редактора кода.
+		/// РўСЂРµР±СѓРµРјС‹Р№ РјРµС‚РѕРґ РґР»СЏ РїРѕРґРґРµСЂР¶РєРё РєРѕРЅСЃС‚СЂСѓРєС‚РѕСЂР° вЂ” РЅРµ РёР·РјРµРЅСЏР№С‚Рµ 
+		/// СЃРѕРґРµСЂР¶РёРјРѕРµ СЌС‚РѕРіРѕ РјРµС‚РѕРґР° СЃ РїРѕРјРѕС‰СЊСЋ СЂРµРґР°РєС‚РѕСЂР° РєРѕРґР°.
 		/// </summary>
 		void InitializeComponent(void)
 		{
@@ -110,7 +110,7 @@ namespace VPN {
 			this->button_connect_1->Name = L"button_connect_1";
 			this->button_connect_1->Size = System::Drawing::Size(124, 28);
 			this->button_connect_1->TabIndex = 3;
-			this->button_connect_1->Text = L"Подключиться";
+			this->button_connect_1->Text = L"РџРѕРґРєР»СЋС‡РёС‚СЊСЃСЏ";
 			this->button_connect_1->UseVisualStyleBackColor = false;
 			this->button_connect_1->Click += gcnew System::EventHandler(this, &main_win::button_connect_Click);
 			
@@ -142,18 +142,18 @@ namespace VPN {
 
 		}
 
-									//#Вспомогательные функции 
+									//#Р’СЃРїРѕРјРѕРіР°С‚РµР»СЊРЅС‹Рµ С„СѓРЅРєС†РёРё 
 #pragma endregion
 	//	private:
 	//		template <typename T>
 	//		GraphicsPath^ RoundedRectangle(T rect, float roundSize) {
 	//			GraphicsPath^ gp = gcnew GraphicsPath();
 
-	//			// Используем float для всех аргументов AddArc
-	//			gp->AddArc((float)rect.X, (float)rect.Y, roundSize, roundSize, 180.0f, 90.0f); // Левый верхний угол
-	//			gp->AddArc((float)(rect.X + rect.Width - roundSize), (float)rect.Y, roundSize, roundSize, 270.0f, 90.0f); // Правый верхний угол
-	//			gp->AddArc((float)(rect.X + rect.Width - roundSize), (float)(rect.Y + rect.Height - roundSize), roundSize, roundSize, 0.0f, 90.0f); // Правый нижний угол
-	//			gp->AddArc((float)rect.X, (float)(rect.Y + rect.Height - roundSize), roundSize, roundSize, 90.0f, 90.0f); // Левый нижний угол
+	//			// РСЃРїРѕР»СЊР·СѓРµРј float РґР»СЏ РІСЃРµС… Р°СЂРіСѓРјРµРЅС‚РѕРІ AddArc
+	//			gp->AddArc((float)rect.X, (float)rect.Y, roundSize, roundSize, 180.0f, 90.0f); // Р›РµРІС‹Р№ РІРµСЂС…РЅРёР№ СѓРіРѕР»
+	//			gp->AddArc((float)(rect.X + rect.Width - roundSize), (float)rect.Y, roundSize, roundSize, 270.0f, 90.0f); // РџСЂР°РІС‹Р№ РІРµСЂС…РЅРёР№ СѓРіРѕР»
+	//			gp->AddArc((float)(rect.X + rect.Width - roundSize), (float)(rect.Y + rect.Height - roundSize), roundSize, roundSize, 0.0f, 90.0f); // РџСЂР°РІС‹Р№ РЅРёР¶РЅРёР№ СѓРіРѕР»
+	//			gp->AddArc((float)rect.X, (float)(rect.Y + rect.Height - roundSize), roundSize, roundSize, 90.0f, 90.0f); // Р›РµРІС‹Р№ РЅРёР¶РЅРёР№ СѓРіРѕР»
 
 	//			gp->CloseFigure();
 
@@ -162,43 +162,41 @@ namespace VPN {
 	//private:
 	//	template <typename T>
 	//	void MakeButtonRounded(T^ btn, float roundSize) {
-	//		// Получаем область кнопки
+	//		// РџРѕР»СѓС‡Р°РµРј РѕР±Р»Р°СЃС‚СЊ РєРЅРѕРїРєРё
 	//		System::Drawing::Rectangle rect = System::Drawing::Rectangle(0, 0, btn->Width, btn->Height);
 
-	//		// Создаём закруглённый прямоугольник
+	//		// РЎРѕР·РґР°С‘Рј Р·Р°РєСЂСѓРіР»С‘РЅРЅС‹Р№ РїСЂСЏРјРѕСѓРіРѕР»СЊРЅРёРє
 	//		System::Drawing::Drawing2D::GraphicsPath^ path = RoundedRectangle(rect, roundSize);
 
-	//		// Устанавливаем область кнопки
+	//		// РЈСЃС‚Р°РЅР°РІР»РёРІР°РµРј РѕР±Р»Р°СЃС‚СЊ РєРЅРѕРїРєРё
 	//		btn->Region = gcnew System::Drawing::Region(path);
 	//	}
 
 	private :
-		 String^ ReadTXT(String^ dirFile) {
+		String^ ReadTXT(String^ dirFile) {
 			try {
-				// Открытие файла для чтения
-				StreamReader^ file = File::OpenText(dirFile);
+				FileStream^ file = gcnew FileStream(dirFile, FileMode::Open, FileAccess::Read, FileShare::Read, 65536, FileOptions::SequentialScan);
+				StreamReader^ reader = gcnew StreamReader(file);
 
-				// Чтение содержимого файла
-				String^ content = file->ReadToEnd();
+				String^ content = reader->ReadToEnd();
 
-				// Закрытие файла
+				reader->Close();
 				file->Close();
 
 				return content;
 			}
-			catch (Exception^& ex) {
-				// Обработка ошибок
-				Console::WriteLine("Ошибка: {0}", ex->Message);
+			catch (Exception^ ex) {
 				return nullptr;
 			}
 		}
 
+
 		void ProgersBar(String^& text) {
-			// Константы для улучшения читаемости
+			// РљРѕРЅСЃС‚Р°РЅС‚С‹ РґР»СЏ СѓР»СѓС‡С€РµРЅРёСЏ С‡РёС‚Р°РµРјРѕСЃС‚Рё
 			const int progressMax = 100;
 			const int specialConditionThreshold = 89;
 
-			// Настройка ProgressBar
+			// РќР°СЃС‚СЂРѕР№РєР° ProgressBar
 			this->progressBar_main->Visible = true;
 			this->progressBar_main->Minimum = 1;
 			this->progressBar_main->Maximum = progressMax;
@@ -206,39 +204,60 @@ namespace VPN {
 			this->progressBar_main->Step = 1;
 
 			try {
-				// Основной цикл
+				// РћСЃРЅРѕРІРЅРѕР№ С†РёРєР»
 				for (int x = 1; x <= progressMax; ++x) {
-					if (x <= specialConditionThreshold ||
-						(text == "Connection_correct.\n" || text == "Disconnect_correct.\n")) {
-						this->progressBar_main->PerformStep();
+					if ((text == "Connection_correct.\n" || text == "Disconnect_correct.\n")) {
+						this->progressBar_main->Value = progressMax;
 					}
 					else if(text->Empty) {
-						// Изменение цвета ProgressBar на красный при ошибке
+						
+						// РР·РјРµРЅРµРЅРёРµ С†РІРµС‚Р° ProgressBar РЅР° РєСЂР°СЃРЅС‹Р№ РїСЂРё РѕС€РёР±РєРµ
 						this->progressBar_main->ForeColor = Color::Red;
-						return;
+						
 					}
+
 				}
 			}
 			catch (System::ComponentModel::Win32Exception^ ex) {
 				this->progressBar_main->ForeColor = Color::Red;
-				MessageBox::Show("Ошибка: " + ex->Message, "Ошибка соединения",
+				MessageBox::Show("РћС€РёР±РєР°: " + ex->Message, "РћС€РёР±РєР° СЃРѕРµРґРёРЅРµРЅРёСЏ",
 					MessageBoxButtons::OK, MessageBoxIcon::Error);
 			}
 		}
 
-		static void ClearTXT() {
-			
-			Process::Start(".\\source\\Start_Clear.vbs");
+		private:
+			 void ClearTXT() {
+			try {
+
+				Process^ process = Process::Start(".\\source\\Start_Clear.vbs");
+				//process->WaitForExit(); // Р–РґРµРј Р·Р°РІРµСЂС€РµРЅРёСЏ РїСЂРѕС†РµСЃСЃР°
+
+			}
+			catch (Exception^& ex) {
+				
+				MessageBox::Show("РћС€РёР±РєР° Р·Р°РїСѓСЃРєР°: " + ex->Message, "РћС€РёР±РєР°", MessageBoxButtons::OK, MessageBoxIcon::Error);
+			}
+		}
+
+		// РњРµС‚РѕРґ РґР»СЏ Р·Р°РїСѓСЃРєР° РїРѕС‚РѕРєР°
+	private:
+		void StartClearTXT() {
+			try
+			{
+				Thread^ ThreadClearTXT = gcnew Thread(gcnew ThreadStart(this, &main_win::ClearTXT));
+				ThreadClearTXT->IsBackground = true; // РџРѕС‚РѕРє Р·Р°РІРµСЂС€РёС‚СЃСЏ РїСЂРё Р·Р°РІРµСЂС€РµРЅРёРё РїСЂРёР»РѕР¶РµРЅРёСЏ
+				ThreadClearTXT->Start();
+			}
+			catch (System::ComponentModel::Win32Exception^& ex)
+			{
+				MessageBox::Show("РћС€РёР±РєР°: " + ex->Message, "РћС€РёР±РєР° Р·Р°РїСѓСЃРєР° РїРѕС‚РѕРєР°", MessageBoxButtons::OK, MessageBoxIcon::Error);
+
+			}
 
 		}
-		void StartClearTXTThread() {
-			Thread^ thread = gcnew Thread(gcnew ThreadStart(&ClearTXT));
-			thread->Start();
-		}
 
 
-
-									// Основыне функции 
+									// РћСЃРЅРѕРІС‹РЅРµ С„СѓРЅРєС†РёРё 
 #pragma endregion				
 
 
@@ -253,39 +272,50 @@ namespace VPN {
 
 	}
 
-	private: System::Void button_connect_Click(System::Object^ sender, System::EventArgs^ e ) {
-		static bool isConnected = false; // Состояние кнопки
+	private:
+		System::Void button_connect_Click(System::Object^ sender, System::EventArgs^ e) {
+			static bool isConnected = false; // РЎРѕСЃС‚РѕСЏРЅРёРµ РєРЅРѕРїРєРё
+			String^ TextON;
+			String^ TextOFF;
+
+			try {
+				if (!isConnected) {
+					// Р—Р°РїСѓСЃРє РїСЂРѕС†РµСЃСЃР° РїРѕРґРєР»СЋС‡РµРЅРёСЏ VPN
+					Process::Start(".\\source\\Start_VPN_ON.vbs");
+					this->button_connect_1->Text = "РћС‚РєР»СЋС‡РёС‚СЊСЃСЏ";
+					isConnected = true;
+					// РџРѕРїС‹С‚РєР° Р·Р°РіСЂСѓР·РёС‚СЊ Р»РѕРі РїРѕРґРєР»СЋС‡РµРЅРёСЏ
+					TextON = ReadTXT("VPN_ON_LOG.txt");
+
+					//!!!!!!РЎРґРµР°Р»С‚СЊ С‡С‚Рѕ Р±С‹ РѕСЃРЅРѕРІРЅРѕР№ РїРѕС‚РѕРє Р¶РґР°Р» РєРѕРіРґР° РІ Р»РѕРіР°С… РїРѕСЏРІРёС‚СЃСЏ Р·Р°РїРёСЃСЊ!!!!!!
 
 
-		try
-		{
-			if (!isConnected) {
-				
-				Process::Start(".\\source\\Start_VPN_ON.vbs"); //ON  .\\source\\Start_VPN_ON.vbs
-				this->button_connect_1->Text = "Отключиться";
-				isConnected = true;
-				String^ TextOn;
-				TextOn = ReadTXT("VPN_ON_LOG.txt");
-				ProgersBar(TextOn);
+					// Р—Р°РїСѓСЃРє РїСЂРѕРіСЂРµСЃСЃ-Р±Р°СЂР° С‚РѕР»СЊРєРѕ РµСЃР»Рё С‚РµРєСЃС‚ Р±С‹Р» Р·Р°РіСЂСѓР¶РµРЅ
+					if (!String::IsNullOrEmpty(TextON)) {
+						ProgersBar(TextON);
+					}
 
+				}
+				else {
+					// Р—Р°РїСѓСЃРє РїСЂРѕС†РµСЃСЃР° РѕС‚РєР»СЋС‡РµРЅРёСЏ VPN
+					Process::Start(".\\source\\End_VPN_OFF.vbs");
+					this->button_connect_1->Text = "РџРѕРґРєР»СЋС‡РёС‚СЊСЃСЏ";
+					isConnected = false;
+					// РџРѕРїС‹С‚РєР° Р·Р°РіСЂСѓР·РёС‚СЊ Р»РѕРі РѕС‚РєР»СЋС‡РµРЅРёСЏ
+					TextOFF = ReadTXT("VPN_OFF_LOG.txt");
+
+
+					// Р—Р°РїСѓСЃРє РїСЂРѕРіСЂРµСЃСЃ-Р±Р°СЂР° С‚РѕР»СЊРєРѕ РµСЃР»Рё С‚РµРєСЃС‚ Р±С‹Р» Р·Р°РіСЂСѓР¶РµРЅ
+					if (!String::IsNullOrEmpty(TextOFF)) {
+						ProgersBar(TextOFF);
+					}
+				}
 			}
-			else {				
-
-				Process::Start(".\\source\\End_VPN_OFF.vbs"); //OFF .\\source\\End_VPN_OFF.vbs
-				this->button_connect_1->Text = "Подключиться";
-				isConnected = false;
-				String^ TextOff;
-				TextOff = ReadTXT("VPN_OFF_LOG.txt");
-				ProgersBar(TextOff);
-
+			catch (System::ComponentModel::Win32Exception^& ex) {
+				MessageBox::Show("РћС€РёР±РєР°: " + ex->Message, "РћС€РёР±РєР° Р·Р°РїСѓСЃРєР°", MessageBoxButtons::OK, MessageBoxIcon::Error);
 			}
 		}
-		catch (System::ComponentModel::Win32Exception^& ex)
-		{
-			MessageBox::Show("Ошибка: " + ex->Message, "Ошибка запуска", MessageBoxButtons::OK, MessageBoxIcon::Error);
 
-		}
-	}
 
 	private: System::Void progressBar_main_Move(System::Object^ sender, System::EventArgs^ e) {
 		
