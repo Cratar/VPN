@@ -16,15 +16,30 @@
       <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
       <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
     </Filter>
+    <Filter Include="redact_TXT">
+      <UniqueIdentifier>{e2c4d009-2818-4b1c-a769-bb130ebe088a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="x64">
+      <UniqueIdentifier>{971f4b62-a592-412b-ad6b-6b0f1b90c44d}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="main_win.h">
+      <Filter>Файлы заголовков</Filter>
+    </ClInclude>
+    <ClInclude Include="Edit_Files.h">
+      <Filter>redact_TXT</Filter>
+    </ClInclude>
+    <ClInclude Include="NativeMethods.h">
       <Filter>Файлы заголовков</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main_win.cpp">
       <Filter>Исходные файлы</Filter>
+    </ClCompile>
+    <ClCompile Include="Edit_Files.cpp">
+      <Filter>redact_TXT</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -53,6 +68,9 @@
     </None>
     <None Include="source\Clear.bat">
       <Filter>source</Filter>
+    </None>
+    <None Include="dinamic_dll\Temp_add_lib.dll">
+      <Filter>x64</Filter>
     </None>
   </ItemGroup>
   <ItemGroup>

@@ -15,3 +15,22 @@ To improve performance and ensure stable operation of the application, multithre
 
 
 Special attention in the project was paid to handling possible errors that may occur during the operation of the system. Mechanisms were provided for detecting and handling various failure scenarios, including connection problems, incorrect parameters, or unexpected server errors. These measures made it possible to increase the reliability of the program and provide the user with a comfortable experience with the application, minimizing possible system failures.
+
+Self-Made Libraries:
+
+Forget third-party packages – I’ve designed custom .lib and .dll libraries from scratch. These aren’t just reusable; they’re battle-tested for performance and precision, tailored specifically to the unique demands of this project.
+
+Masterful Object-Oriented Design
+Leveraging the full power of object-oriented programming, this project exhibits seamless integration of:
+
+Inheritance: Reducing redundancy and maximizing code reuse across diverse components.
+Encapsulation: Implementing robust security by safeguarding critical data with controlled access.
+Polymorphism: Building systems that adapt dynamically to changing requirements.
+Virtual Functions
+With runtime polymorphism, I’ve enabled a level of modularity and extensibility that ensures the project remains scalable and adaptable to future expansions.
+
+Dynamic Memory Allocation
+Why settle for predefined boundaries? The system employs dynamic memory allocation to optimize resource usage, ensuring it operates at peak efficiency regardless of the workload.
+
+Custom-Engineered Hash Tables
+Forget generic key-value stores. I’ve implemented tailored hash tables with lightning-fast lookups and near-zero collisions, making data retrieval a marvel of computational efficiency.
