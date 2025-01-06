@@ -16,8 +16,10 @@ To improve performance and ensure stable operation of the application, multithre
 
 Special attention in the project was paid to handling possible errors that may occur during the operation of the system. Mechanisms were provided for detecting and handling various failure scenarios, including connection problems, incorrect parameters, or unexpected server errors. These measures made it possible to increase the reliability of the program and provide the user with a comfortable experience with the application, minimizing possible system failures.
 
-Self-Made Libraries:
 
+Cutting-Edge Techniques Employed in the Project:
+
+Self-Made Libraries
 Forget third-party packages – I’ve designed custom .lib and .dll libraries from scratch. These aren’t just reusable; they’re battle-tested for performance and precision, tailored specifically to the unique demands of this project.
 
 Masterful Object-Oriented Design
