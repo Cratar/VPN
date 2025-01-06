@@ -1,4 +1,4 @@
-                                                    !! Perhaps this project is under development, there may be inaccuracies in the work. !!
+                                                    ! Perhaps this project is under development, there may be inaccuracies in the work. !
 
 As part of this project, a VPN service was developed that provides users with the ability to securely connect to remote servers using the L2TP/IPsec protocol. To ensure the confidentiality and security of transmitted data, a shared key is used, which makes the service a convenient and reliable tool for organizing secure access to the Internet.
 
