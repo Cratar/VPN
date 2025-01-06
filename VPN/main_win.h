@@ -1,7 +1,6 @@
 ﻿#pragma once
 #include "NativeMethods.h"
-
-
+#include "SwapIP.h"
 
 namespace VPN {
 	using namespace System::Runtime::InteropServices;
@@ -17,7 +16,7 @@ namespace VPN {
 	using namespace System::Drawing::Drawing2D;
 	using namespace System::Threading;
 	using namespace System::Collections::Generic;
-
+	using namespace System::Windows::Forms;
 
 	/// <summary>
 	/// Сводка для main_win
@@ -129,7 +128,7 @@ namespace VPN {
 			this->comboBox1->Size = System::Drawing::Size(121, 21);
 			this->comboBox1->Sorted = true;
 			this->comboBox1->TabIndex = 4;
-			this->comboBox1->SelectedIndexChanged += gcnew System::EventHandler(this, &main_win::List_Countries);
+			this->comboBox1->SelectionChangeCommitted += gcnew System::EventHandler(this, &main_win::List_Countries);
 			// 
 			// main_win
 			// 
@@ -159,33 +158,6 @@ namespace VPN {
 
 									//#Вспомогательные функции 
 #pragma endregion
-	//	private:
-	//		template <typename T>
-	//		GraphicsPath^ RoundedRectangle(T rect, float roundSize) {
-	//			GraphicsPath^ gp = gcnew GraphicsPath();
-
-	//			// Используем float для всех аргументов AddArc
-	//			gp->AddArc((float)rect.X, (float)rect.Y, roundSize, roundSize, 180.0f, 90.0f); // Левый верхний угол
-	//			gp->AddArc((float)(rect.X + rect.Width - roundSize), (float)rect.Y, roundSize, roundSize, 270.0f, 90.0f); // Правый верхний угол
-	//			gp->AddArc((float)(rect.X + rect.Width - roundSize), (float)(rect.Y + rect.Height - roundSize), roundSize, roundSize, 0.0f, 90.0f); // Правый нижний угол
-	//			gp->AddArc((float)rect.X, (float)(rect.Y + rect.Height - roundSize), roundSize, roundSize, 90.0f, 90.0f); // Левый нижний угол
-
-	//			gp->CloseFigure();
-
-	//			return gp;
-	//		}
-	//private:
-	//	template <typename T>
-	//	void MakeButtonRounded(T^ btn, float roundSize) {
-	//		// Получаем область кнопки
-	//		System::Drawing::Rectangle rect = System::Drawing::Rectangle(0, 0, btn->Width, btn->Height);
-
-	//		// Создаём закруглённый прямоугольник
-	//		System::Drawing::Drawing2D::GraphicsPath^ path = RoundedRectangle(rect, roundSize);
-
-	//		// Устанавливаем область кнопки
-	//		btn->Region = gcnew System::Drawing::Region(path);
-	//	}
 
 	private :
 		String^ ReadTXT(String^ dirFile) {
@@ -286,18 +258,42 @@ namespace VPN {
 			}
 
 
-			// Добавить сохранениие выбранной страны и может через dll сделать изменнение в докумение 
-
-
 		}
+
+
+
 		void SelectCountry() {
-			// Найти место от куда вызывать оперделение страны (возможно  на кнопе , если ничего не выбради то запускать с стадартным ip
-			// если выбрали менять в доках ip )
-			String^ Country = this->comboBox1->SelectedItem->ToString();
 
-			NativeMethods::Сountry(Country);
-		
+			String^ Country = this->comboBox1->SelectedItem->ToString();
+			String^ IP;
+
+			if (Country == "Republic of Korea")
+			{
+				IP = "221.147.27.204";
+			}
+			else if (Country == "Romania") {
+				IP = "217.138.212.58";
+			}
+			else if (Country == "Viet Nam")
+			{
+				IP = "222.255.11.117";
+			}
+			else if (Country == "China") {
+			
+				IP = "119.97.247.62";
+			}
+			else
+			{
+				IP = "219.100.37.117";
+			}
+			//Thread::Sleep(150);
+			BatFileUpdater::UpdateBatFile(".\\source\\VPN_ON.bat" , IP);
+			//Thread::Sleep(150);
+
 		}
+
+		
+
 
 
 
@@ -322,18 +318,19 @@ namespace VPN {
 			static bool isConnected = false; // Состояние кнопки
 			String^ TextON;
 			String^ TextOFF;
+			//SelectCountry();
+
 			try {
 				if (!isConnected) {
 					// Запуск процесса подключения VPN
 					Process::Start(".\\source\\Start_VPN_ON.vbs");
+
 					this->button_connect_1->Text = "Отключиться";
 					isConnected = true;
 
 
 					while (String::IsNullOrEmpty(TextON)) {
-						Thread::Sleep(150);
 						TextON = ReadTXT("VPN_ON_LOG.txt");
-						Thread::Sleep(150);
 
 					}
 
@@ -353,6 +350,7 @@ namespace VPN {
 				else {
 					// Запуск процесса отключения VPN
 					Process::Start(".\\source\\End_VPN_OFF.vbs");
+
 					this->button_connect_1->Text = "Подключиться";
 					isConnected = false;
 
@@ -376,6 +374,8 @@ namespace VPN {
 						this->progressBar_main->ForeColor = Color::Red;
 						MessageBox::Show("Ошибка: ", "Ошибка завершения ", MessageBoxButtons::OK, MessageBoxIcon::Error);
 					}
+					Process::Start(".\\source\\Start_Dell_VPN.vbs");
+
 				}
 			}
 			catch (System::ComponentModel::Win32Exception^& ex) {
@@ -390,10 +390,11 @@ namespace VPN {
 	}
 
 
+
 	private: System::Void List_Countries(System::Object^ sender, System::EventArgs^ e) {
-		
-
-
+		//Thread::Sleep(150);
+		SelectCountry();
+		//Thread::Sleep(150);
 	}
 };
 }

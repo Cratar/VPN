@@ -126,15 +126,14 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="Edit_Files.cpp" />
     <ClCompile Include="main_win.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="Edit_Files.h" />
     <ClInclude Include="main_win.h">
       <FileType>CppForm</FileType>
     </ClInclude>
     <ClInclude Include="NativeMethods.h" />
+    <ClInclude Include="SwapIP.h" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="main_win.resx">
@@ -147,8 +146,10 @@
   <ItemGroup>
     <None Include="dinamic_dll\Temp_add_lib.dll" />
     <None Include="source\Clear.bat" />
+    <None Include="source\Dell_VPN.bat" />
     <None Include="source\End_VPN_OFF.vbs" />
     <None Include="source\Start_Clear.vbs" />
+    <None Include="source\Start_Dell_VPN.vbs" />
     <None Include="source\Start_VPN_ON.vbs" />
     <None Include="source\test.bat" />
     <None Include="source\VPN_OFF.bat" />

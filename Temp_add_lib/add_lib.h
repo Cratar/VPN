@@ -1,2 +1,3 @@
 #pragma once
-extern "C" __declspec(dllexport) void  Ñountry(std::string Countri);
+
+extern "C" __declspec(dllexport) void  Country(std::string countryS);
